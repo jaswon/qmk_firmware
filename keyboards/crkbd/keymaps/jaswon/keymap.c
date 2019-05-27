@@ -94,7 +94,6 @@ void matrix_init_user(void) {
 
 void keyboard_post_init_user(void) {
 	rgb_matrix_enable_noeeprom();
-	/* rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_FX); */
 	rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS);
 }
 
