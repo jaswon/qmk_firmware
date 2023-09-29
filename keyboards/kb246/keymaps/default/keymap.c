@@ -5,10 +5,14 @@
 
 #define MICMUTE HYPR(KC_F12)
 
-#define _BASE 0
-#define _RAISE 1
+enum layer_names {
+    _BASE,
+    _RAISE,
+    
+    NUM_LAYERS,
+};
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint16_t PROGMEM keymaps[NUM_LAYERS][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
         KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,          KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, 
         KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,          KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_EQL , 
@@ -25,12 +29,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+const int ENC_MAP[NUM_ENCODERS][NUM_LAYERS][2] = {
+    [0] = {
+        [_BASE]  = {KC_VOLD, KC_VOLU},
+        [_RAISE] = {KC_WH_U, KC_WH_D},
+    },
+};
+
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        switch (biton32(layer_state)) {
-        case _BASE : tap_code(clockwise ? KC_WH_D : KC_WH_U); break;
-        case _RAISE: tap_code(clockwise ? KC_VOLU : KC_VOLD); break;
-        }
-    }
+    tap_code(ENC_MAP[index][biton32(layer_state)][clockwise]);
     return false;
 }
