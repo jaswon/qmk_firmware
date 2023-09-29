@@ -3,8 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-#define MICMUTE HYPR(KC_F12)
-
 enum layer_names {
     _BASE,
     _RAISE,
@@ -12,7 +10,9 @@ enum layer_names {
     NUM_LAYERS,
 };
 
-const uint16_t PROGMEM keymaps[NUM_LAYERS][MATRIX_ROWS][MATRIX_COLS] = {
+#define HYP_F12 HYPR(KC_F12)
+
+const uint16_t keymaps[NUM_LAYERS][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
         KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,          KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, 
         KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,          KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_EQL , 
@@ -24,12 +24,12 @@ const uint16_t PROGMEM keymaps[NUM_LAYERS][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,          KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , 
         _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, KC_F12 , 
         KC_CAPS, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, 
-        _______, _______, _______, _______, _______, _______, MICMUTE, _______, _______, KC_LBRC, KC_RBRC, _______, _______,
-                 _______, _______, _______, _______, _______, _______, KC_DEL , KC_HOME, KC_PGDN, KC_PGUP, KC_END
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______, _______,
+                 _______, _______, _______, _______, _______, HYP_F12, KC_DEL , KC_HOME, KC_PGDN, KC_PGUP, KC_END
     ),
 };
 
-const int ENC_MAP[NUM_ENCODERS][NUM_LAYERS][2] = {
+const uint16_t ENC_MAP[NUM_ENCODERS][NUM_LAYERS][2] = {
     [0] = {
         [_BASE]  = {KC_VOLD, KC_VOLU},
         [_RAISE] = {KC_WH_U, KC_WH_D},
